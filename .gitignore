@@ -1,0 +1,8 @@
+.Rproj.user
+.Rhistory
+.RData
+.Ruserdata
+*.html
+answer*
+.~lock.*
+russian-syntagrus-ud-2.4-190531.udpipe
