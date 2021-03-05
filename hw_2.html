@@ -397,6 +397,21 @@ letter_freq %&gt;%
 ##   language   posterior
 ##   &lt;chr&gt;          &lt;dbl&gt;
 ## 1 Portuguese     0.153</code></pre>
+<p>можно просто транспонировать датафрейм, но <code>gather()</code> и <code>spread()</code> считаются устаревшими:</p>
+<pre class="r"><code>read_csv(&quot;letter_frequency.csv&quot;) %&gt;% 
+  filter(letter %in% c(&quot;m&quot;, &quot;o&quot;, &quot;s&quot;, &quot;t&quot;)) %&gt;% 
+  gather(language, value, -letter) %&gt;%
+  spread(letter, value) %&gt;% 
+  mutate(likelihood = m*o*s*t,
+         prior = 1/13,
+         product = likelihood*prior,
+         posterior = product/sum(product)) %&gt;% 
+  filter(posterior == max(posterior)) %&gt;% 
+  select(language, posterior)</code></pre>
+<pre><code>## # A tibble: 1 x 2
+##   language   posterior
+##   &lt;chr&gt;          &lt;dbl&gt;
+## 1 Portuguese     0.153</code></pre>
 </div>
 <div id="task-2.2-вес-задания-2" class="section level2">
 <h2>task 2.2 (вес задания: 2)</h2>
